@@ -13,6 +13,7 @@ import {
   GET_ALL_USER,
   OTP_SENT,
   SET_LOADING_TRUE,
+  FINAL_DATA_REP,
 } from "../actions/types";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   yearExpCnt: [],
   expReport: [],
   otpMessage: "",
+  finalDataRep: [],
 };
 
 const auth = (state = initialState, action) => {
@@ -127,6 +129,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         allUser: payload,
+      };
+    case FINAL_DATA_REP:
+      return {
+        ...state,
+        finalDataRep: payload,
       };
     case OTP_SENT:
       return {

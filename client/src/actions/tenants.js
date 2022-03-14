@@ -19,6 +19,7 @@ import {
   GET_DELAYS,
   GET_DOORNUMBER,
   GET_ALL_USER,
+  FINAL_DATA_REP,
 } from "./types";
 
 const config = {
@@ -214,6 +215,10 @@ export const getTenantReportYearMonth =
         "Content-Type": "application/json",
       },
     };
+    dispatch({
+      type: FINAL_DATA_REP,
+      payload: finalDataReport,
+    });
     try {
       const res = await axios.post(
         "/api/tenants/get-tenant-exp-report",
@@ -335,7 +340,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
   try {
     await axios.post("/api/tenants/renew-tenant-details", finalData, config);
-    dispatch(getTenantReportYearMonth());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

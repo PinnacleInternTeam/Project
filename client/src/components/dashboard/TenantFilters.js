@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 // import TenantReport from "./TenantReport";
 
 import DatePicker from "react-datepicker";
@@ -13,7 +12,6 @@ import {
   getTenantReportYearMonth,
   getTenantReportOldExp,
 } from "../../actions/tenants";
-import NotFound from "../layout/NotFound";
 
 const optName = [
   { value: "01", label: "Jan" },
@@ -32,7 +30,6 @@ const optName = [
 
 const TenantFilters = ({
   auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt, expReport },
-
   getMonthExpCount,
   getMonthExpCountFilter,
   getPreviousYearsExpCount,

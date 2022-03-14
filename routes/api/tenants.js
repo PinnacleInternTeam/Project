@@ -295,7 +295,7 @@ router.post("/add-agreement-details", async (req, res) => {
 
 router.get("/get-all-shops", async (req, res) => {
   try {
-    const ShopsData = await ShopDetails.find({}).sort({ shopDoorNo: -1 });
+    const ShopsData = await ShopDetails.find({}).sort({ _id: -1 });
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);
