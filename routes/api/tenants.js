@@ -534,6 +534,8 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
       {
         $match: {
           tenantLeaseEndDate: { $lte: lastDate },
+          AgreementStatus: { $ne: "Renewed" },
+          tenantstatus: { $eq: "Active" },
         },
       },
     ]);
