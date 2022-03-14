@@ -549,9 +549,7 @@ router.get("/get-door-number", async (req, res) => {
     const doorNoData = await TenentAgreement.aggregate([
       {
         $match: {
-          AgreementStatus: {
-            $eq: "Active",
-          },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
     ]);
@@ -576,6 +574,7 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
           as: "output",
         },
       },
+      { $unwind: "$output" },
       {
         $project: {
           tenantName: "$tenantName",
@@ -602,6 +601,7 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
           tenantstatus: {
             $eq: "Active",
           },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
     ]);
