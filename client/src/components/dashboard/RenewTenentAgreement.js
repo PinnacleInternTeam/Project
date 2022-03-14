@@ -24,6 +24,9 @@ const RenewTenentAgreement = ({
   //formData
   const [formData, setFormData] = useState({
     isSubmitted: false,
+    tenantDoorNo: tenantsData.tenantDoorNo,
+    tenantFileNo: tenantsData.tenantFileNo,
+    tenantRentAmount: tenantsData.chargesCal,
   });
 
   var today = new Date();
@@ -38,8 +41,15 @@ const RenewTenentAgreement = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  const { recordId, tenantstatus, tenantdeactivereason, isSubmitted } =
-    formData;
+  const {
+    recordId,
+    tenantstatus,
+    tenantdeactivereason,
+    isSubmitted,
+    tenantDoorNo,
+    tenantFileNo,
+    tenantRentAmount,
+  } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,8 +58,9 @@ const RenewTenentAgreement = ({
 
   const onSubmit = () => {
     const finalData = {
-      tenantRentAmount: tenantsData.chargesCal,
-      tenantFileNo: tenantsData.tenantFileNo,
+      tenantRentAmount: tenantRentAmount,
+      tenantFileNo: tenantFileNo,
+      tenantDoorNo: tenantDoorNo,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
@@ -58,11 +69,10 @@ const RenewTenentAgreement = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-
+    //console.log(finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
-    // window.location.reload();
   };
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
@@ -103,32 +113,27 @@ const RenewTenentAgreement = ({
       <section className="sub_reg">
         <div className="row">
           <div
-            className="col-lg-2 col-md-2 col-sm-4 col-12"
+            className="col-lg-4 col-md-2 col-sm-4 col-12"
             style={{ paddingRight: "0px" }}
           >
-            <label>Door No:</label>
+            <label>Name:</label>
           </div>
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>{tenantsData.tenantDoorNo}</label>
-          </div>
-          <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> File No:</label>
-          </div>
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>{tenantsData.tenantFileNo}</label>
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <label>{tenantsData.tenantName}</label>
           </div>
         </div>
+
         <div className="row py-2">
-          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
-            <label> Rent Amount:</label>
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label>Door No:</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
               type="text"
-              name="tenantRentAmount"
+              name="tenantDoorNo"
               className="form-control"
-              value={tenantsData.chargesCal}
+              value={tenantDoorNo}
               onChange={(e) => onInputChange(e)}
               required
               style={{
@@ -138,8 +143,46 @@ const RenewTenentAgreement = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
-            <label> Lease Start Date* :</label>
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label> File No:</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <input
+              type="text"
+              name="tenantFileNo"
+              className="form-control"
+              value={tenantFileNo}
+              onChange={(e) => onInputChange(e)}
+              required
+              style={{
+                width: "70%",
+              }}
+            />
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label> Rent Amount:</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <input
+              type="text"
+              name="tenantRentAmount"
+              className="form-control"
+              value={tenantRentAmount}
+              onChange={(e) => onInputChange(e)}
+              required
+              style={{
+                width: "70%",
+              }}
+            />
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label>Lease Start Date* :</label>
           </div>
 
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
@@ -160,7 +203,7 @@ const RenewTenentAgreement = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>Lease End Date:</label>
           </div>
 
@@ -169,10 +212,10 @@ const RenewTenentAgreement = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-8 Savebutton" size="lg">
+          <div className="col-lg-12 Savebutton" size="lg">
             <button
               variant="success"
-              className="btn sub_form btn_continue Save"
+              className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""

@@ -184,8 +184,8 @@ const AddTenantDetails = ({
 
   const onSubmit = () => {
     const finalData = {
-      tenantFileNo: shopfileNo,
-      tenantDoorNo: doorNo.value,
+      tenantFileNo: tenantFileNo,
+      tenantDoorNo: tenantDoorNo,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
       tenantFirmName: tenantFirmName,
@@ -248,30 +248,28 @@ const AddTenantDetails = ({
               <label>Door No*:</label>
             </div>
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-              <Select
+              <input
+                type="text"
                 name="tenantDoorNo"
-                options={shopdoorNo}
-                isSearchable={false}
-                placeholder="Select"
-                value={doorNo}
-                onChange={(e) => onDoorNoChange(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
+                value={tenantDoorNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
               />
             </div>
             <div className="col-lg-1 col-md-2 col-sm-1 col-12">
               <label> File No :</label>
             </div>
             <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              <label>{shopfileNo}</label>
+              {/* <label>{shopfileNo}</label> */}
+              <input
+                type="text"
+                name="tenantFileNo"
+                value={tenantFileNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
             </div>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">

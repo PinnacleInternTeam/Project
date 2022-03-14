@@ -24,7 +24,7 @@ const AllTenantShopDetails = ({
   useEffect(() => {
     getAllDoorNumbers();
   }, [getAllDoorNumbers]);
-
+  // console.log(allDoorNumber);
   const [showDeactiveModal, setShowDeactiveModal] = useState(false);
   const handleDeactiveModalClose = () => setShowDeactiveModal(false);
 
@@ -43,8 +43,8 @@ const AllTenantShopDetails = ({
   const shopdoorNo = [];
   allDoorNumber.map((doorno) =>
     shopdoorNo.push({
-      label: doorno.shopDoorNo,
-      value: doorno.shopDoorNo,
+      label: doorno.tenantDoorNo,
+      value: doorno.tenantDoorNo,
     })
   );
 
@@ -56,7 +56,7 @@ const AllTenantShopDetails = ({
     const finalData = {
       doornoSearch: e.value,
     };
-
+    //console.log(finalData);
     getAllTenanatDoornoFilter(finalData);
   };
 

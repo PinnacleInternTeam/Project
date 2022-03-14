@@ -122,9 +122,9 @@ const Header = ({
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
-                        <li>
+                        {/* <li>
                           <Link to="/shop-Details">Shop Details</Link>
-                        </li>
+                        </li> */}
 
                         <li>
                           <Link

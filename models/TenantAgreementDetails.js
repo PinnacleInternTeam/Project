@@ -28,6 +28,13 @@ const TenantAgreementDetails = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  tenantFileNo: {
+    type: String,
+  },
+  tenantDoorNo: {
+    type: String,
+    required: true,
+  },
   AgreementStatus: {
     type: String,
     default: "Active", //Active,Expired, Renewed

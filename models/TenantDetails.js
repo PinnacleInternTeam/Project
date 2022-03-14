@@ -2,13 +2,6 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantDetails = new mongoose.Schema({
-  tenantFileNo: {
-    type: String,
-  },
-  tenantDoorNo: {
-    type: String,
-    required: true,
-  },
   tenantName: {
     type: String,
     required: true,

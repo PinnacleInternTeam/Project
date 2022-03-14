@@ -13,8 +13,6 @@ const bcrypt = require("bcryptjs");
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
   const finalData = {
-    tenantFileNo: data.tenantFileNo,
-    tenantDoorNo: data.tenantDoorNo,
     tenantName: data.tenantName,
     tenantPhone: data.tenantPhone,
     tenantFirmName: data.tenantFirmName,
@@ -35,8 +33,6 @@ router.post("/add-tenant-details", async (req, res) => {
     output = await tenantDetails.save();
     const finalData2 = {
       tdId: output._id,
-      thFileNo: data.tenantFileNo,
-      thDoorNo: data.tenantDoorNo,
       thName: data.tenantName,
       thPhone: data.tenantPhone,
       thFirmName: data.tenantFirmName,
@@ -66,6 +62,8 @@ router.post("/add-tenant-details", async (req, res) => {
 
     const finalData1 = {
       tdId: output._id,
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo,
       tenantRentAmount: data.tenantRentAmount,
       tenantLeaseStartDate: data.tenantLeaseStartDate,
       tenantLeaseEndDate: data.tenantLeaseEndDate,
@@ -369,14 +367,14 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
-          tenantDoorNo: "$tenantDoorNo",
-          tenantFileNo: "$tenantFileNo",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",
+          tenantDoorNo: "$output.tenantDoorNo",
+          tenantFileNo: "$output.tenantFileNo",
           chargesCal: {
             $add: [
               {
@@ -548,11 +546,11 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
 
 router.get("/get-door-number", async (req, res) => {
   try {
-    const doorNoData = await ShopDetails.aggregate([
+    const doorNoData = await TenentAgreement.aggregate([
       {
         $match: {
-          shopStatus: {
-            $eq: "Used",
+          AgreementStatus: {
+            $eq: "Active",
           },
         },
       },
@@ -581,8 +579,8 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
-          tenantDoorNo: "$tenantDoorNo",
-          tenantFileNo: "$tenantFileNo",
+          tenantDoorNo: "$output.tenantDoorNo",
+          tenantFileNo: "$output.tenantFileNo",
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
           tenantAdharNo: "$tenantAdharNo",
@@ -629,8 +627,7 @@ router.get("/get-all-tenants", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
-          tenantDoorNo: "$tenantDoorNo",
-          tenantFileNo: "$tenantFileNo",
+
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
           tenantAdharNo: "$tenantAdharNo",
@@ -639,6 +636,8 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantPaymentMode: "$tenantPaymentMode",
           tenantChequenoOrDdno: "$tenantChequenoOrDdno",
           tenantstatus: "$tenantstatus",
+          tenantDoorNo: "$output.tenantDoorNo",
+          tenantFileNo: "$output.tenantFileNo",
           tenantRentAmount: "$output.tenantRentAmount",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantLeaseStartDate: "$output.tenantLeaseStartDate",
@@ -676,6 +675,7 @@ router.post("/renew-tenant-details", async (req, res) => {
   const finalDataTA = {
     tdId: data.tdId,
     tenantFileNo: data.tenantFileNo,
+    tenantDoorNo: data.tenantDoorNo,
     tenantRentAmount: data.tenantRentAmount,
     tenantLeaseStartDate: data.tenantLeaseStartDate,
     tenantLeaseEndDate: data.tenantLeaseEndDate,
