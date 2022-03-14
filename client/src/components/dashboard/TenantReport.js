@@ -80,12 +80,19 @@ const TenantReport = ({
                       {expReport &&
                         expReport[0] &&
                         expReport.map((expReportVal, idx) => {
+                          var tled = new Date(expReportVal.tenantLeaseEndDate);
+                          var tenantLeaseEndDate =
+                            tled.getDate() +
+                            "-" +
+                            (tled.getMonth() + 1) +
+                            "-" +
+                            tled.getFullYear();
                           return (
                             <tr key={idx}>
                               <td>{expReportVal.tenantName}</td>
                               <td>{expReportVal.tenantDoorNo}</td>
                               <td>{expReportVal.tenantFileNo}</td>
-                              <td>{expReportVal.tenantLeaseEndDate}</td>
+                              <td>{tenantLeaseEndDate}</td>
                               <td>{expReportVal.tenantRentAmount}</td>
                               <td>{expReportVal.chargesCal.toFixed(2)}</td>
                               <td>{expReportVal.stampDuty.toFixed(2)}</td>
