@@ -208,6 +208,7 @@ const AddTenantDetails = ({
     setFormData({
       ...formData,
       tenantFileNo: "",
+      tenantDoorNo: "",
       tenantName: "",
       tenantPhone: "",
       tenantFirmName: "",
@@ -526,9 +527,13 @@ const AddTenantDetails = ({
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
               style={
+                tenantDoorNo !== "" &&
+                tenantFileNo !== "" &&
                 tenantName !== "" &&
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
+                tenantRentAmount !== "" &&
+                leaseEndDate !== "" &&
                 tenantAddr !== ""
                   ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }

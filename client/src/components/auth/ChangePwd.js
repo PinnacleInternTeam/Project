@@ -20,8 +20,8 @@ const ChangePwd = ({
   };
 
   const [formData, setFormData] = useState({
-    password: "Password@123",
-    rePassword: "Password@123",
+    password: "",
+    rePassword: "",
   });
 
   const { password, rePassword } = formData;
