@@ -1435,7 +1435,7 @@ input[type="radio"].error {
 
 /***********Pagination Styles********/
 .pagination {
-  display: inline-flex;
+  /* display: inline-flex; */
   /* margin: 1% 0%; */
   border: 1px solid #fff;
   /* padding: 0px; */

@@ -70,7 +70,7 @@ const TenantReport = ({
                         <th>File No</th>
                         <th>Expiry Date</th>
                         <th>Rent</th>
-                        <th>Rewised Rent</th>
+                        <th>Revised Rent</th>
                         <th>Stamp Duty</th>
                         <th>Agreement Status</th>
                         <th>Operation</th>
