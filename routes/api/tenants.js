@@ -593,6 +593,7 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
           tenantRentAmount: "$output.tenantRentAmount",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantLeaseStartDate: "$output.tenantLeaseStartDate",
+          AgreementStatus: "$output.AgreementStatus",
         },
       },
       {
@@ -629,7 +630,6 @@ router.get("/get-all-tenants", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
-
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
           tenantAdharNo: "$tenantAdharNo",
