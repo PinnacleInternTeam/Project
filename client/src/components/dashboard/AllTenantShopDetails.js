@@ -144,6 +144,20 @@ const AllTenantShopDetails = ({
                     <tbody>
                       {currentDatas &&
                         currentDatas.map((tenants, idx) => {
+                          var tlsd = new Date(tenants.tenantLeaseStartDate);
+                          var tenantLeaseStartDate =
+                            tlsd.getDate() +
+                            "-" +
+                            (tlsd.getMonth() + 1) +
+                            "-" +
+                            tlsd.getFullYear();
+                          var tled = new Date(tenants.tenantLeaseEndDate);
+                          var tenantLeaseEndDate =
+                            tled.getDate() +
+                            "-" +
+                            (tled.getMonth() + 1) +
+                            "-" +
+                            tled.getFullYear();
                           return (
                             <tr key={idx}>
                               <td>{tenants.tenantName}</td>
@@ -153,7 +167,7 @@ const AllTenantShopDetails = ({
                               <td>{tenants.tenantPhone}</td>
                               <td>{tenants.tenantDepositAmt}</td>
                               <td>{tenants.tenantRentAmount}</td>
-                              <td>{tenants.tenantLeaseStartDate}</td>
+                              <td>{tenantLeaseStartDate}</td>
                               <td
                                 style={
                                   tenants.AgreementStatus === "Expired"
@@ -161,7 +175,7 @@ const AllTenantShopDetails = ({
                                     : { color: "black" }
                                 }
                               >
-                                {tenants.tenantLeaseEndDate}
+                                {tenantLeaseEndDate}
                               </td>
 
                               <td>
