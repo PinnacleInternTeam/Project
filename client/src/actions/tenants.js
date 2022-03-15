@@ -338,8 +338,37 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
+  
+  const finalDataReport = {
+    monthSearch: finalData.monthSearch,
+    yearSearch: finalData.yearSearch,
+  };
+
+  const finalDataExpCount = {
+    selectedY: finalData.selectedY,
+  };
+
+  const finalDataPrevYear = {
+    selectedVal: finalData.selectedVal,
+  };
+
+  const finalData2 = {
+    tenantRentAmount: finalData.tenantRentAmount,
+    tenantFileNo: finalData.tenantFileNo,
+    tenantDoorNo: finalData.tenantDoorNo,
+    tenantLeaseStartDate: finalData.tenantLeaseStartDate,
+    tenantLeaseEndDate: finalData.tenantLeaseEndDate,
+    tdId: finalData.tdId,
+    AgreementStatus: finalData.AgreementStatus,
+    agreementId: finalData.agreementId,
+    tenantEnteredBy: finalData.tenantEnteredBy,
+    tenantDate: finalData.tenantDate,
+  };
   try {
-    await axios.post("/api/tenants/renew-tenant-details", finalData, config);
+    await axios.post("/api/tenants/renew-tenant-details", finalData2, config);
+    dispatch(getTenantReportYearMonth(finalDataReport));
+    dispatch(getMonthExpCountFilter(finalDataExpCount));
+    dispatch(getPreviousYearsExpCount(finalDataPrevYear));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

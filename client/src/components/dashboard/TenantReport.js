@@ -1,19 +1,13 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
-} from "../../actions/tenants";
+
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, user, users, finalDataRep },
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
+  auth: { expReport, isAuthenticated, user, users },
+ 
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
@@ -25,23 +19,7 @@ const TenantReport = ({
   const onReportModalChange = (e) => {
     if (e) {
       handleEditModalClose();
-      const finalDataReport = {
-        monthSearch: finalDataRep.monthSearch,
-        yearSearch: finalDataRep.yearSearch,
-      };
-      const finalData = {
-        selectedY: finalDataRep.yearSearch,
-      };
-
-      var dt = new Date(
-        finalDataRep.yearSearch + "-" + finalDataRep.monthSearch
-      );
-      const finalData1 = {
-        selectedVal: dt,
-      };
-      getTenantReportYearMonth(finalDataReport);
-      getMonthExpCountFilter(finalData);
-      getPreviousYearsExpCount(finalData1);
+      
     }
   };
   return !isAuthenticated || !user || !users ? (
@@ -162,16 +140,11 @@ const TenantReport = ({
 
 TenantReport.propTypes = {
   auth: PropTypes.object.isRequired,
-  getTenantReportYearMonth: PropTypes.func.isRequired,
-  getMonthExpCountFilter: PropTypes.func.isRequired,
-  getPreviousYearsExpCount: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
+
 })(TenantReport);
