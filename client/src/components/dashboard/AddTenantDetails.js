@@ -10,7 +10,7 @@ import Select from "react-select";
 import { Modal } from "react-bootstrap";
 const AddTenantDetails = ({
   tenants: { allDoorNos, allTenantSetting },
-  auth: { isAuthenticated, user, users },
+  auth: { isAuthenticated, user, users, finalDataRep },
   getAllDoorNos,
   AddTenantDetailsform,
   getAllSettings,
@@ -181,6 +181,7 @@ const AddTenantDetails = ({
       value: doorno.shopDoorNo,
     })
   );
+  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onSubmit = () => {
     const finalData = {
@@ -203,6 +204,9 @@ const AddTenantDetails = ({
       shopId: shopId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
+
+      selectedY: finalDataRep.yearSearch,
+      selectedVal: dt,
     };
     AddTenantDetailsform(finalData);
     setFormData({

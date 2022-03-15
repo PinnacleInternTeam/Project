@@ -4,13 +4,12 @@ import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 
 const RenewTenentAgreement = ({
-  auth: { isAuthenticated, user, users ,finalDataRep},
+  auth: { isAuthenticated, user, users, finalDataRep },
   tenantsData,
-  tenants: { allTenantSetting},
+  tenants: { allTenantSetting },
   RenewTenantDetailsform,
   getAllSettings,
   onReportModalChange,
-  
 }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -42,11 +41,7 @@ const RenewTenentAgreement = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  var dt = new Date(
-    finalDataRep.yearSearch + "-" + finalDataRep.monthSearch
-  );
-   
-    
+  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const {
     recordId,
@@ -78,8 +73,8 @@ const RenewTenentAgreement = ({
 
       monthSearch: finalDataRep.monthSearch,
       yearSearch: finalDataRep.yearSearch,
-      selectedY:  finalDataRep.yearSearch,
-      selectedVal: dt
+      selectedY: finalDataRep.yearSearch,
+      selectedVal: dt,
     };
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });

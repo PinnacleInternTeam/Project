@@ -30,6 +30,13 @@ const config = {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
+  const finalDataExpCount = {
+    selectedY: finalData.selectedY,
+  };
+
+  const finalDataPrevYear = {
+    selectedVal: finalData.selectedVal,
+  };
   try {
     const res = await axios.post(
       "/api/tenants/add-tenant-details",
@@ -42,6 +49,8 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     });
 
     dispatch(getAllDoorNos());
+    dispatch(getMonthExpCountFilter(finalDataExpCount));
+    dispatch(getPreviousYearsExpCount(finalDataPrevYear));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -338,7 +347,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
-  
   const finalDataReport = {
     monthSearch: finalData.monthSearch,
     yearSearch: finalData.yearSearch,
