@@ -144,20 +144,14 @@ const AllTenantShopDetails = ({
                     <tbody>
                       {currentDatas &&
                         currentDatas.map((tenants, idx) => {
-                          var tlsd = new Date(tenants.tenantLeaseStartDate);
-                          var tenantLeaseStartDate =
-                            tlsd.getDate() +
-                            "-" +
-                            (tlsd.getMonth() + 1) +
-                            "-" +
-                            tlsd.getFullYear();
-                          var tled = new Date(tenants.tenantLeaseEndDate);
-                          var tenantLeaseEndDate =
-                            tled.getDate() +
-                            "-" +
-                            (tled.getMonth() + 1) +
-                            "-" +
-                            tled.getFullYear();
+                          var SD = tenants.tenantLeaseStartDate.split(/\D/g);
+                          var tenantLeaseStartDate = [SD[2], SD[1], SD[0]].join(
+                            "-"
+                          );
+                          var ED = tenants.tenantLeaseEndDate.split(/\D/g);
+                          var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
+                            "-"
+                          );
                           return (
                             <tr key={idx}>
                               <td>{tenants.tenantName}</td>

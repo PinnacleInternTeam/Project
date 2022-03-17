@@ -1,19 +1,13 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
-} from "../../actions/tenants";
+
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, user, users, finalDataRep },
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
+  auth: { expReport, isAuthenticated, user, users },
+ 
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
@@ -25,23 +19,7 @@ const TenantReport = ({
   const onReportModalChange = (e) => {
     if (e) {
       handleEditModalClose();
-      const finalDataReport = {
-        monthSearch: finalDataRep.monthSearch,
-        yearSearch: finalDataRep.yearSearch,
-      };
-      const finalData = {
-        selectedY: finalDataRep.yearSearch,
-      };
-
-      var dt = new Date(
-        finalDataRep.yearSearch + "-" + finalDataRep.monthSearch
-      );
-      const finalData1 = {
-        selectedVal: dt,
-      };
-      getTenantReportYearMonth(finalDataReport);
-      getMonthExpCountFilter(finalData);
-      getPreviousYearsExpCount(finalData1);
+      
     }
   };
   return !isAuthenticated || !user || !users ? (
@@ -70,7 +48,7 @@ const TenantReport = ({
                         <th>File No</th>
                         <th>Expiry Date</th>
                         <th>Rent</th>
-                        <th>Rewised Rent</th>
+                        <th>Revised Rent</th>
                         <th>Stamp Duty</th>
                         <th>Agreement Status</th>
                         <th>Operation</th>
@@ -80,13 +58,10 @@ const TenantReport = ({
                       {expReport &&
                         expReport[0] &&
                         expReport.map((expReportVal, idx) => {
-                          var tled = new Date(expReportVal.tenantLeaseEndDate);
-                          var tenantLeaseEndDate =
-                            tled.getDate() +
-                            "-" +
-                            (tled.getMonth() + 1) +
-                            "-" +
-                            tled.getFullYear();
+                          var ED = expReportVal.tenantLeaseEndDate.split(/\D/g);
+                          var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
+                            "-"
+                          );
                           return (
                             <tr key={idx}>
                               <td>{expReportVal.tenantName}</td>
@@ -165,16 +140,11 @@ const TenantReport = ({
 
 TenantReport.propTypes = {
   auth: PropTypes.object.isRequired,
-  getTenantReportYearMonth: PropTypes.func.isRequired,
-  getMonthExpCountFilter: PropTypes.func.isRequired,
-  getPreviousYearsExpCount: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
-  getTenantReportYearMonth,
-  getMonthExpCountFilter,
-  getPreviousYearsExpCount,
+
 })(TenantReport);
