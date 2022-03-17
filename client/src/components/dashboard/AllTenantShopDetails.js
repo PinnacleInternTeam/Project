@@ -95,7 +95,7 @@ const AllTenantShopDetails = ({
                 options={shopdoorNo}
                 isSearchable={true}
                 value={doorNo}
-                placeholder="Select DoorNo"
+                placeholder="Select Door No"
                 onChange={(e) => onDoorNoChange(e)}
                 theme={(theme) => ({
                   ...theme,
@@ -212,7 +212,7 @@ const AllTenantShopDetails = ({
                     </div>
                     <div className="col-lg-8 col-md-6 col-sm-12 col-12 align_right">
                       <label>
-                        No of Users : {allTenants && allTenants.length}
+                        No of Tenants : {allTenants && allTenants.length}
                       </label>
                     </div>
                   </div>
