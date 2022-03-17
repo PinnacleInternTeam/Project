@@ -487,6 +487,8 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",
+          tenantDoorNo: "$output.tenantDoorNo",
+          tenantFileNo: "$output.tenantFileNo",
           chargesCal: {
             $add: [
               {
