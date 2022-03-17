@@ -396,22 +396,27 @@ router.post("/get-tenant-exp-report", async (req, res) => {
               {
                 $multiply: [
                   {
-                    $add: [
+                    $multiply: [
                       {
-                        $divide: [
+                        $add: [
                           {
-                            $multiply: [
-                              "$output.tenantRentAmount",
-                              tenantSettingsData[0].hikePercentage,
+                            $divide: [
+                              {
+                                $multiply: [
+                                  "$output.tenantRentAmount",
+                                  tenantSettingsData[0].hikePercentage,
+                                ],
+                              },
+                              100,
                             ],
                           },
-                          100,
+                          "$output.tenantRentAmount",
                         ],
                       },
-                      "$output.tenantRentAmount",
+                      tenantSettingsData[0].stampDuty,
                     ],
                   },
-                  tenantSettingsData[0].stampDuty,
+                  tenantSettingsData[0].leaseTimePeriod,
                 ],
               },
               100,
