@@ -10,7 +10,7 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
  
 
   if (pageNumber.length > 10) {
-    excracted = pageNumber.slice(currentPage - 1, currentPage + 10);
+    excracted = pageNumber.slice(currentPage - 1, currentPage + 4);
   } else {
     excracted = [...pageNumber];
   }

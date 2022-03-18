@@ -33,7 +33,7 @@ async function updateExpiryStatus() {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     const updateStatus = await TenentAgreement.updateMany(
-      { tenantLeaseEndDate: todayDateymd },
+      { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active"  },
       {
         $set: {
           AgreementStatus: "Expired",
@@ -48,7 +48,7 @@ async function updateExpiryStatus() {
 }
 
 function expairyNotif() {
-  cron.schedule(" 23 * * * * ", function () {
+  cron.schedule("19 01 * * *", function () {
     updateExpiryStatus();
   });
 }
