@@ -6,10 +6,13 @@ import { getAllTenants } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+
 import {
   getAllTenanatDoornoFilter,
   getAllDoorNumbers,
 } from "../../actions/tenants";
+import EditTenantDetails from "./EditTenantDetails";
+// import EditTenantDetails from "./EditTenantDetails";
 const AllTenantShopDetails = ({
   auth: { isAuthenticated, user, users },
   getAllTenants,
@@ -24,7 +27,6 @@ const AllTenantShopDetails = ({
   useEffect(() => {
     getAllDoorNumbers();
   }, [getAllDoorNumbers]);
-  // console.log(allDoorNumber);
   const [showDeactiveModal, setShowDeactiveModal] = useState(false);
   const handleDeactiveModalClose = () => setShowDeactiveModal(false);
 
@@ -34,12 +36,25 @@ const AllTenantShopDetails = ({
     }
   };
 
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleUpdateModalClose = () => setShowUpdateModal(false);
+
+  const onUpdateModalChange = (e) => {
+    if (e) {
+      handleUpdateModalClose();
+    }
+  };
+
   const [userData, setUserData] = useState(null);
   const onUpdate = (tenants, idx) => {
     setShowDeactiveModal(true);
     setUserData(tenants);
   };
 
+  const onEdit = (tenants, idx) => {
+    setShowUpdateModal(true);
+    setUserData(tenants);
+  };
   const shopdoorNo = [];
   allDoorNumber.map((doorno) =>
     shopdoorNo.push({
@@ -185,6 +200,14 @@ const AllTenantShopDetails = ({
                                 ) : (
                                   <Fragment></Fragment>
                                 )}
+                                &nbsp;
+                                <button
+                                  variant="success"
+                                  className="btn sub_form  "
+                                  onClick={() => onEdit(tenants, idx)}
+                                >
+                                  Edit
+                                </button>
                               </td>
                             </tr>
                           );
@@ -215,7 +238,6 @@ const AllTenantShopDetails = ({
             </div>
           </div>
         </section>
-
         <Modal
           show={showDeactiveModal}
           backdrop="static"
@@ -242,6 +264,35 @@ const AllTenantShopDetails = ({
             <DeactiveTenantDetails
               tenants={userData}
               onDeactiveModalChange={onDeactiveModalChange}
+            />
+          </Modal.Body>
+        </Modal>
+        <Modal
+          show={showUpdateModal}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h3 className="modal-title text-center">Edit Tenant Details </h3>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleUpdateModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <EditTenantDetails
+              tenants={userData}
+              onUpdateModalChange={onUpdateModalChange}
             />
           </Modal.Body>
         </Modal>

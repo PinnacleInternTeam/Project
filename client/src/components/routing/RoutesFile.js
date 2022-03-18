@@ -16,6 +16,7 @@ import ShopDetails from "../dashboard/ShopDetails";
 import AllUserDetails from "../dashboard/AllUserDetails";
 import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
 import AddShopDetails from "../dashboard/AddShopDetails";
+import EditTenantDetails from "../dashboard/EditTenantDetails";
 
 const RoutesFile = () => {
   return (
@@ -46,6 +47,11 @@ const RoutesFile = () => {
           exact
           path="/change-password"
           component={changePassword}
+        />
+        <PrivateRoute
+          exact
+          path="/edit-tenant-details"
+          component={EditTenantDetails}
         />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <Route component={NotFound} />

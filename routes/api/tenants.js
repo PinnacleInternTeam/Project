@@ -27,6 +27,7 @@ router.post("/add-tenant-details", async (req, res) => {
     shopId: data.shopId,
     tenantEnteredBy: data.tenantEnteredBy,
     tenantDate: data.tenantDate,
+    generatordepoAmt: data.generatordepoAmt,
   };
   try {
     let tenantDetails = new TenantDetails(finalData);
@@ -40,6 +41,7 @@ router.post("/add-tenant-details", async (req, res) => {
       thAdharNo: data.tenantAdharNo,
       thPanNo: data.tenantPanNo,
       thDepositAmt: data.tenantDepositAmt,
+      thgeneratordepoAmt: data.generatordepoAmt,
       thshopId: data.shopId,
       thStatus: "Add",
       thEnteredBy: data.tenantEnteredBy,
@@ -644,6 +646,7 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantAddr: "$tenantAddr",
           tenantPanNo: "$tenantPanNo",
           tenantBankName: "$tenantBankName",
+          generatordepoAmt: "$generatordepoAmt",
           tenantChequenoOrDdno: "$tenantChequenoOrDdno",
           tenantchequeDate: "$tenantchequeDate",
           tenantDepositAmt: "$tenantDepositAmt",
@@ -761,6 +764,7 @@ router.post(
             tenantBankName: data.tenantBankName,
             tenantchequeDate: data.tenantchequeDate,
             tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            generatordepoAmt: data.generatordepoAmt,
           },
         }
       );

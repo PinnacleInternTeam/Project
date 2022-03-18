@@ -124,6 +124,39 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
     });
   }
 };
+export const UpdateTenantsDetails =
+  (finalData, finalData2) => async (dispatch) => {
+    try {
+      // console.log(finalData);
+      const res = await axios.post(
+        "/api/tenants/update-tenant-details",
+        finalData,
+        config
+      );
+      // dispatch({
+      //   type: GET_ALL_TENANTS,
+      // });
+      //  dispatch(getAllTenants());
+    } catch (err) {
+      dispatch({
+        type: TENANT_FEEDBACK_ERROR,
+      });
+    }
+  };
+
+export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/tenants/tenant-update-history",
+      historyData,
+      config
+    );
+  } catch (err) {
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
   try {

@@ -32,10 +32,22 @@ const TenantHistory = new mongoose.Schema({
   thDepositAmt: {
     type: Number,
   },
+  thgeneratordepoAmt: {
+    type: Number,
+  },
   thshopId: {
     type: ObjectId,
   },
   thStatus: {
+    type: String,
+  },
+  thChequenoOrDdno: {
+    type: String,
+  },
+  thBankName: {
+    type: String,
+  },
+  thPaymentMode: {
     type: String,
   },
   thEnteredBy: {
