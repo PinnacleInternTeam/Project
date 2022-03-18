@@ -589,11 +589,14 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
           tenantFileNo: "$output.tenantFileNo",
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
+          tenantAddr: "$tenantAddr",
           tenantAdharNo: "$tenantAdharNo",
           tenantPanNo: "$tenantPanNo",
           tenantDepositAmt: "$tenantDepositAmt",
           tenantPaymentMode: "$tenantPaymentMode",
           tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantchequeDate: "$tenantchequeDate",
+          tenantBankName: "$tenantBankName",
           tenantstatus: "$tenantstatus",
           tenantRentAmount: "$output.tenantRentAmount",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
@@ -638,10 +641,13 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
           tenantAdharNo: "$tenantAdharNo",
+          tenantAddr: "$tenantAddr",
           tenantPanNo: "$tenantPanNo",
+          tenantBankName: "$tenantBankName",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantchequeDate: "$tenantchequeDate",
           tenantDepositAmt: "$tenantDepositAmt",
           tenantPaymentMode: "$tenantPaymentMode",
-          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
           tenantstatus: "$tenantstatus",
           tenantDoorNo: "$output.tenantDoorNo",
           tenantFileNo: "$output.tenantFileNo",
@@ -703,6 +709,88 @@ router.post("/renew-tenant-details", async (req, res) => {
       }
     );
     res.json(updateStatus);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.post(
+  "/update-tenant",
+  // [check("tdId", "Invalid Request").not().isEmpty()],
+  async (req, res) => {
+    try {
+      let data = req.body;
+
+      const updateagreementdetails = await TenantSettings.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
+            hikePercentage: data.hikePercentage,
+            stampDuty: data.stampDuty,
+            leaseTimePeriod: data.leaseTimePeriod,
+          },
+        }
+      );
+
+      res.json(updateagreementdetails);
+    } catch (error) {
+      res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+  }
+);
+
+router.post(
+  "/update-tenant-details",
+
+  async (req, res) => {
+    try {
+      let data = req.body;
+      const updatetenantdetails = await TenantDetails.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
+            tenantName: data.tenantName,
+            tenantPhone: data.tenantPhone,
+            tenantFirmName: data.tenantFirmName,
+            tenantAddr: data.tenantAddr,
+            tenantAdharNo: data.tenantAdharNo,
+            tenantPanNo: data.tenantPanNo,
+            tenantDepositAmt: data.tenantDepositAmt,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+          },
+        }
+      );
+
+      //  res.json(updatetenantdetails);
+
+      // const AgreementUpdate = await TenentAgreement.updateOne(
+      //   { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
+
+      //   {
+      //     $set: {
+      //       tenantRentAmount: data.tenantRentAmount,
+      //     },
+      //   }
+      // );
+
+      // res.json(AgreementUpdate);
+    } catch (error) {
+      res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+  }
+);
+
+router.post("/tenant-update-history", async (req, res) => {
+  let data = req.body;
+  try {
+    let tenantHistories = new TenentHistories(data);
+    output = await tenantHistories.save();
+    res.send(output);
+    console.log(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
