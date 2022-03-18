@@ -135,7 +135,7 @@ const AllTenantShopDetails = ({
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+            <div className="col-lg-11 col-md-11 col-sm-11 col-11  ">
               <section className="body">
                 <div className="body-inner no-padding  table-responsive fixTableHead">
                   <table
@@ -149,11 +149,11 @@ const AllTenantShopDetails = ({
                         <th>File No</th>
                         <th>Firm Name</th>
                         <th>Phone</th>
-                        <th>Deposit Amount</th>
+                        <th>Deposit</th>
                         <th>Rent</th>
                         <th>Lease Start</th>
                         <th>Lease End</th>
-                        <th>Operation</th>
+                        <th>Op</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -176,7 +176,7 @@ const AllTenantShopDetails = ({
                               <td>{tenants.tenantPhone}</td>
                               <td>{tenants.tenantDepositAmt}</td>
                               <td>{tenants.tenantRentAmount}</td>
-                              <td>{tenantLeaseStartDate}</td>
+                              <td><center>{tenantLeaseStartDate}</center></td>
                               <td
                                 style={
                                   tenants.AgreementStatus === "Expired"
@@ -184,30 +184,34 @@ const AllTenantShopDetails = ({
                                     : { color: "black" }
                                 }
                               >
-                                {tenantLeaseEndDate}
+                                <center>{tenantLeaseEndDate}</center>
                               </td>
 
-                              <td>
+                              <td><center>
                                 {tenants.tenantstatus &&
                                 tenants.tenantstatus !== "Deactive" ? (
-                                  <button
-                                    variant="success"
-                                    className="btn sub_form  "
-                                    onClick={() => onUpdate(tenants, idx)}
-                                  >
-                                    Deactive
-                                  </button>
+                                  <Fragment>
+                                   
+                                    <img
+                                      className="img_icon_size log"
+                                      onClick={() => onUpdate(tenants, idx)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="Deactivate"
+                                      title="Deactivate"
+                                    />
+                                  </Fragment>
                                 ) : (
                                   <Fragment></Fragment>
                                 )}
                                 &nbsp;
-                                <button
-                                  variant="success"
-                                  className="btn sub_form  "
+
+                                <img
+                                  className="img_icon_size log"
                                   onClick={() => onEdit(tenants, idx)}
-                                >
-                                  Edit
-                                </button>
+                                  src={require("../../static/images/edit_icon.png")}
+                                  alt="Edit"
+                                  title="Edit"
+                                /></center>
                               </td>
                             </tr>
                           );
