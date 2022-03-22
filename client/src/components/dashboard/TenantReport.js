@@ -1,14 +1,18 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
-
+import RenewalReportPrint from "../printPdf/renewalReportPrint";
+import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
- 
 }) => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
@@ -19,7 +23,6 @@ const TenantReport = ({
   const onReportModalChange = (e) => {
     if (e) {
       handleEditModalClose();
-      
     }
   };
   return !isAuthenticated || !user || !users ? (
@@ -31,6 +34,15 @@ const TenantReport = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">Tenant Reports </h2>
+            </div>
+            <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
+              <img
+                className="img_icon_size log"
+                onClick={() => handlePrint()}
+                src={require("../../static/images/print.png")}
+                alt="print"
+                title="Print"
+              />
             </div>
           </div>
           <div className="row">
@@ -99,6 +111,9 @@ const TenantReport = ({
             </div>
           </div>
         </section>
+        <div style={{ display: "none" }}>
+          <RenewalReportPrint expReport={expReport} ref={componentRef} />
+        </div>
         <Modal
           show={showEditModal}
           backdrop="static"
@@ -145,6 +160,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {
-
-})(TenantReport);
+export default connect(mapStateToProps, {})(TenantReport);
