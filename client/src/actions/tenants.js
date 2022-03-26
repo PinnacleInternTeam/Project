@@ -136,7 +136,7 @@ export const UpdateTenantsDetails =
       // dispatch({
       //   type: GET_ALL_TENANTS,
       // });
-      //  dispatch(getAllTenants());
+      dispatch(getAllTenants());
     } catch (err) {
       dispatch({
         type: TENANT_FEEDBACK_ERROR,

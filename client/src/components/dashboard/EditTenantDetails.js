@@ -7,6 +7,7 @@ import Select from "react-select";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
+  tenants1: { allTenantSetting },
   tenants,
   UpdateTenantsDetails,
   onUpdateModalChange,
@@ -17,6 +18,7 @@ const EditTenantDetails = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
+  console.log(user);
   const [showHide, setShowHide] = useState({
     showChequenoSection:
       tenants && tenants.tenantPaymentMode === "Cheque" ? true : false,
@@ -98,6 +100,38 @@ const EditTenantDetails = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const [entryDate, setEntryDate] = useState(tenants.tenantLeaseStartDate);
+  const [leaseEndDate, setLeaseEndDate] = useState(tenants.tenantLeaseEndDate);
+  const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+  const onDateChangeEntry1 = (e) => {
+    setEntryDate(e.target.value);
+    var newDate = e.target.value;
+    var calDate = new Date(newDate);
+
+    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+
+    //Calculating lease end date
+    var dateData = calDate.getDate();
+    calDate.setMonth(calDate.getMonth() + +leaseMonth);
+    if (calDate.getDate() !== dateData) {
+      calDate.setDate(0);
+    }
+    var dd1 = calDate.getDate();
+    var mm2 = calDate.getMonth() + 1;
+    var yyyy1 = calDate.getFullYear();
+    if (dd1 < 10) {
+      dd1 = "0" + dd1;
+    }
+
+    if (mm2 < 10) {
+      mm2 = "0" + mm2;
+    }
+    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+    setLeaseEndDate(leaseEndDate);
+    var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
+    setNewLeaseEndDate(newLeaseEndDate);
+  };
+  console.log(leaseEndDate);
   //For setting mindate as todays date
   var today = new Date();
   var dd = today.getDate();
@@ -130,8 +164,8 @@ const EditTenantDetails = ({
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
-      tenantLeaseStartDate: tenantLeaseStartDate,
-      tenantLeaseEndDate: tenantLeaseEndDate,
+      tenantLeaseStartDate: entryDate,
+      tenantLeaseEndDate: leaseEndDate,
       generatordepoAmt: generatordepoAmt,
       AgreementStatus: tenants.AgreementStatus,
       tenantEnteredBy: user && user._id,
@@ -141,7 +175,7 @@ const EditTenantDetails = ({
       tdId: tenants ? tenants._id : "",
       // tenantDoorNo: tenants.tenantDoorNo,
       // tenantFileNo: tenants.tenantFileNo,
-      // tenantRentAmount: tenants.tenantRentAmount,
+      thRentAmount: tenants.tenantRentAmount,
       thName: tenants.tenantName,
       thPhone: tenants.tenantPhone,
       thFirmName: tenants.tenantFirmName,
@@ -158,8 +192,8 @@ const EditTenantDetails = ({
       // tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
       // tenantPaymentMode: tenants.tenantPaymentMode.value,
       // tenantchequeDate: tenants.startSelectedDate,
-      // tenantLeaseStartDate: tenants.tenantLeaseStartDate,
-      // tenantLeaseEndDate: tenants.tenantLeaseEndDate,
+      thLeaseStartDate: tenants.tenantLeaseStartDate,
+      thLeaseEndDate: tenants.tenantLeaseEndDate,
       // AgreementStatus: tenants.AgreementStatus,
       thEnteredBy: user && user._id,
       thDate: todayDateymd,
@@ -364,7 +398,48 @@ const EditTenantDetails = ({
             </div>
           </div>
         )}
+        {tenants.AgreementStatus && tenants.AgreementStatus === "Active" ? (
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>Rent Amount :</label>
+              <input
+                type="number"
+                name="tenantRentAmount"
+                value={tenantRentAmount}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
 
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>Lease Start Date :</label>
+              <input
+                type="date"
+                placeholder="dd/mm/yyyy"
+                className="form-control cpp-input datevalidation"
+                name="tenantLeaseStartDate"
+                value={entryDate}
+                onChange={(e) => onDateChangeEntry1(e)}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
+
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>Lease End Date:</label>
+              <label>
+                <b>{leaseEndDate}</b>
+              </label>
+            </div>
+          </div>
+        ) : (
+          <Fragment></Fragment>
+        )}
         <div className="col-lg-12 Savebutton " size="lg">
           <button
             variant="success"
@@ -392,6 +467,7 @@ const EditTenantDetails = ({
 
 EditTenantDetails.propTypes = {
   auth: PropTypes.object.isRequired,
+  tenants: PropTypes.object.isRequired,
   UpdateTenantsDetails: PropTypes.func.isRequired,
   getAllTenants: PropTypes.func.isRequired,
   tenantsDetailsHistory: PropTypes.func.isRequired,
@@ -399,6 +475,7 @@ EditTenantDetails.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants1: state.tenants,
 });
 
 export default connect(mapStateToProps, {

@@ -31,7 +31,6 @@ const TenantDetails = new mongoose.Schema({
   },
   generatordepoAmt: {
     type: Number,
-    required: true,
   },
   tenantPaymentMode: {
     type: String,

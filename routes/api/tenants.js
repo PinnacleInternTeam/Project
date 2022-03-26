@@ -771,15 +771,17 @@ router.post(
 
       //  res.json(updatetenantdetails);
 
-      // const AgreementUpdate = await TenentAgreement.updateOne(
-      //   { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
+      const AgreementUpdate = await TenentAgreement.updateOne(
+        { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
 
-      //   {
-      //     $set: {
-      //       tenantRentAmount: data.tenantRentAmount,
-      //     },
-      //   }
-      // );
+        {
+          $set: {
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+          },
+        }
+      );
 
       // res.json(AgreementUpdate);
     } catch (error) {

@@ -53,6 +53,15 @@ const TenantHistory = new mongoose.Schema({
   thEnteredBy: {
     type: ObjectId,
   },
+  thRentAmount: {
+    type: Number,
+  },
+  thLeaseStartDate: {
+    type: String,
+  },
+  thLeaseEndDate: {
+    type: String,
+  },
   thDate: {
     type: String,
   },

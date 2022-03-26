@@ -263,7 +263,7 @@ const AddTenantDetails = ({
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-              <label> File No :</label>
+              <label> File No* :</label>
               <input
                 type="text"
                 name="tenantFileNo"
@@ -513,7 +513,7 @@ const AddTenantDetails = ({
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
                 tenantRentAmount !== "" &&
-                leaseEndDate !== "" &&
+                entryDate !== "" &&
                 tenantAddr !== ""
                   ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
