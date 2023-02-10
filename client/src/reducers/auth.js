@@ -36,8 +36,7 @@ const initialState = {
   finalDataRep: [],
 };
 
-const auth = (state = initialState, action) => {
-  const { type, payload } = action;
+const auth = (state = initialState, action) => {const { type, payload } = action;
 
   switch (type) {
     case USER_LOADED:

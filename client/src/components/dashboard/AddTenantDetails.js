@@ -101,11 +101,10 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
-
     //Calculating lease end date
+    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
     var dateData = calDate.getDate();
-    calDate.setMonth(calDate.getMonth() + +leaseMonth);
+    calDate.setMonth(calDate.getMonth()  + leaseMonth);
     if (calDate.getDate() !== dateData) {
       calDate.setDate(0);
     }

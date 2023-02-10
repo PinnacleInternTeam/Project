@@ -301,13 +301,13 @@ router.post(
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "leasemanagement18@gmail.com",
-          pass: "lrmgnt@18",
+          user: "devteaminfinityno1@gmail.com",
+          pass: "qb\4`-+#Z1",
         },
       });
 
       var mailOptions = {
-        from: "leasemanagement18@gmail.com",
+        from: "devteaminfinityno1@gmail.com",
         to: useremail,
         subject: "OTP for Login",
         text: `Your OTP is ` + randomOTPVal,
