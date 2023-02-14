@@ -19,6 +19,7 @@ import AddShopDetails from "../dashboard/AddShopDetails";
 import EditTenantDetails from "../dashboard/EditTenantDetails";
 
 const RoutesFile = () => {
+  console.log("inside")
   return (
     <section>
       <Switch>

@@ -10,12 +10,7 @@ import TenantSettings from "../dashboard/TenantSettings";
 
 import { getAllSettings } from "../../actions/tenants";
 
-const Header = ({
-  auth: { isAuthenticated, loading, user, allTenantSetting },
-  logout,
-
-  getAllSettings,
-}) => {
+const Header = ({auth: { isAuthenticated, loading, user, allTenantSetting },logout,getAllSettings,}) => {
   useEffect(() => {
     getAllSettings();
   }, [getAllSettings]);
@@ -83,11 +78,7 @@ const Header = ({
                   )}
                 </NavItem> */}
                 <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <NavLink
-                      to="/add-tenant-details"
-                      activeStyle={{ color: "Black", textDecoration: "none" }}
-                    >
+              {!loading && isAuthenticated && user ?(<NavLink to="/add-tenant-details"activeStyle={{ color: "Black", textDecoration: "none" }}>
                       Add Tenant Details
                     </NavLink>
                   ) : (

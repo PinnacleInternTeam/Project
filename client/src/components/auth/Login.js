@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Route, Routes, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login, removeError, sendOTP } from "../../actions/auth";
+import { login, removeError} from "../../actions/auth";
 
 const Login = ({
   login,
@@ -10,8 +10,8 @@ const Login = ({
   errorResponse,
   removeError,
   loading,
-  sendOTP,
-  otpMessage,
+  //sendOTP,
+  //otpMessage,
 }) => {
   useEffect(() => {
     removeError();
@@ -25,7 +25,7 @@ const Login = ({
   });
 
   // W7'Um34BrCxzQNR?
-  const { useremail, password, userOTP } = formData;
+  const { useremail, password} = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -69,11 +69,11 @@ const Login = ({
           setFormData({ ...formData, [e.target.name]: value });
         }
         break;
-      case "userOTP":
-        setFormData({ ...formData, [e.target.name]: value });
-        break;
-      default:
-        break;
+    //    case "userOTP":
+    //    setFormData({ ...formData, [e.target.name]: value });
+    //    break;
+    // default:
+    //    break;
     }
   };
 
@@ -141,20 +141,22 @@ const Login = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors(formData)) {
-      login(useremail, password, userOTP);
+      login(useremail, password);
     }
     setFormData({ ...formData, submitted: true });
   };
 
-  const getOtp = async () => {
-    if (checkErrors(formData)) {
-      sendOTP(useremail, password);
-    }
-  };
+  // const getOtp = async () => 
+  // {
+  //   if (checkErrors(formData)) {
+  //     sendOTP(useremail, password);
+  //   }
+  // };
 
-  if (isAuthenticated) {
-    return <Redirect to="/route-driver" />;
-  }
+  if (isAuthenticated) 
+  {
+     return <Redirect to="/route-driver"/>;
+   }
 
   return (
     <Fragment>
@@ -211,7 +213,7 @@ const Login = ({
           )}
           <label className="pop_up">Password *</label>
         </div>
-
+{/* 
         <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
           {loading ? (
             <button
@@ -226,9 +228,9 @@ const Login = ({
               Get OTP
             </button>
           )}
-        </div>
+        </div> */}
 
-        <div className="form-group form_top">
+        {/* <div className="form-group form_top">
           <input
             type="text"
             name="userOTP"
@@ -241,14 +243,15 @@ const Login = ({
           <label className="pop_up">
             <span className="label-content">OTP</span>
           </label>
-        </div>
+        </div> */}
 
         <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-          <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
+          <button className="btn contact_reg" 
+          onClick={(e) => onSubmit(e)}>
             SIGN IN
           </button>
         </div>
-        {otpMessage && (
+        {/* {otpMessage && (
           <>
             <center>
               <p style={{ color: "blue", fontSize: "18px" }}>
@@ -265,7 +268,7 @@ const Login = ({
               </p>
             </center>
           </>
-        )}
+        )} */}
         {/* </form> */}
       </div>
     </Fragment>
@@ -277,16 +280,16 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
   errorResponse: PropTypes.string,
-  otpMessage: PropTypes.string,
+ // otpMessage: PropTypes.string,
   removeError: PropTypes.func.isRequired,
-  sendOTP: PropTypes.func.isRequired,
+  //sendOTP: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
   errorResponse: state.auth.errorResponse,
-  otpMessage: state.auth.otpMessage,
+ // otpMessage: state.auth.otpMessage,
 });
 
-export default connect(mapStateToProps, { login, removeError, sendOTP })(Login);
+export default connect(mapStateToProps, { login, removeError})(Login);

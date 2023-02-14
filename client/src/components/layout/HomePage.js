@@ -13,17 +13,14 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
 
   return (
     <div>
-      {isAuthenticated && user ? (
-        <Fragment></Fragment>
-      ) : (
+      {isAuthenticated && user ? (<Fragment></Fragment>) : (
         <Fragment>
           <div className="container container_align"></div>
           <Link
             className="log btn btn_submit"
             style={{ padding: "10px 39px" }}
             onClick={handleLoginModalShow}
-            to="#"
-          >
+            to="#">
             LOGIN
           </Link>
 

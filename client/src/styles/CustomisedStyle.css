@@ -1217,7 +1217,7 @@ input[type="radio"].error {
 /****ADDED FOR POPUP****/
 
 .modal-header {
-  color: #4a4a4a;
+  color: #221f1f;
   border-bottom: 0px;
   font-size: 40px;
   font-weight: 200;
@@ -1261,7 +1261,7 @@ input[type="radio"].error {
   padding: 0% !important;
   width: 600px !important;
 
-  color: #4a4a4a;
+  color: #b83030;
   background-color: #fff !important;
 }
 
@@ -1338,7 +1338,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #429f8c !important;
+  background: #5221d8 !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 36px !important;
@@ -1354,7 +1354,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #429f8c !important;
+  background: #5b429f !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 46px !important;

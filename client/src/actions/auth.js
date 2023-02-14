@@ -15,17 +15,18 @@ import {
   OTP_SENT,
   SET_LOADING_TRUE,
 } from "./types";
+
 import setAuthToken from "../utils/setAuthToken";
 
 // Login User
-export const login = (useremail, password, userOTP) => async (dispatch) => {
+export const login = (useremail, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ useremail, password, userOTP });
+  const body = JSON.stringify({ useremail, password});
 
   try {
     const res = await axios.post("/api/auth/login", body, config);
@@ -42,32 +43,32 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   }
 };
 
-export const sendOTP = (useremail, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch({
-    type: SET_LOADING_TRUE,
-  });
+// export const sendOTP = (useremail, password) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   dispatch({
+//     type: SET_LOADING_TRUE,
+//   });
 
-  const body = JSON.stringify({ useremail, password });
+//   const body = JSON.stringify({ useremail, password });
 
-  try {
-    const res = await axios.post("/api/auth/send_email-otp", body, config);
-    dispatch({
-      type: OTP_SENT,
-      payload: res.data,
-    });
-  } catch (err) {
-    const errors = err.response.data.errors;
-    dispatch({
-      type: LOGIN_FAIL,
-      payload: errors[0].msg,
-    });
-  }
-};
+//   try {
+//     const res = await axios.post("/api/auth/send_email-otp", body, config);
+//     dispatch({
+//       type: OTP_SENT,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     const errors = err.response.data.errors;
+//     dispatch({
+//       type: LOGIN_FAIL,
+//       payload: errors[0].msg,
+//     });
+//   }
+// };
 
 // Load User
 export const loadUser = () => async (dispatch) => {

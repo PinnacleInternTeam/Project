@@ -33,7 +33,13 @@ async function updateExpiryStatus() {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     const updateStatus = await TenentAgreement.updateMany(
-      { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active"  },
+      {
+         tenantLeaseEndDate: 
+         { 
+          $lte: todayDateymd 
+        },
+          AgreementStatus: "Active"  
+      },
       {
         $set: {
           AgreementStatus: "Expired",

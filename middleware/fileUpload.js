@@ -4,16 +4,20 @@ const config = require('config');
 const fileUploadPath = config.get('fileUploadPath');
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: 
+  function(req, file, cb)
+   {
     cb(null, fileUploadPath);
   },
-  filename: function(req, file, cb) {
+  filename: 
+  function(req, file, cb) 
+  {
     cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
 const fileFilter = (req, file, cb) => {
-  // reject a file
+  // reject a file 
   if (file.mimetype === 'text/csv') {
     cb(null, true);
   } else {

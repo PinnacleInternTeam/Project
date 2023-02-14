@@ -23,13 +23,12 @@ const {
   STATUS_CODE_200,
   STATUS_CODE_400,
   STATUS_CODE_500,
-
   EXPIRES_IN,
 } = require("../../common/constant/constants");
 
 const {
   LOGIN,
-  LOAD_USER,
+  //LOAD_USER,
   GET_ALL_USERS,
   FILTER_USERS,
   CHANGE_PWD,
@@ -52,7 +51,7 @@ router.post(
     // }
 
     //retriving Data
-    const { useremail, password, userOTP } = req.body;
+    const { useremail, password} = req.body;
 
     try {
       //userEmail Check In DB
@@ -74,7 +73,8 @@ router.post(
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
       }
-      if (userOTP === userDetails.genaratedOtp || userOTP === "~!@#") {
+      if (true) 
+      {
         //Create Payload
         const payload = {
           user: {
@@ -130,12 +130,16 @@ router.post(
         };
         let LoginHistorySave = new LoginHistory(loginData);
         await LoginHistorySave.save();
-      } else {
+      } 
+      else 
+      {
         return res
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: "Invalid OTP" }] });
       }
-    } catch (err) {
+    } 
+    catch (err) 
+    {
       console.error(err.message);
       res.status(STATUS_CODE_500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -268,7 +272,8 @@ router.post(
 );
 
 //SEND OTP
-router.post(
+router.post
+(
   "/send_email-otp",
   [
     check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
@@ -292,15 +297,18 @@ router.post(
       //Match The Passwords
       const isMatch = await bcrypt.compare(password, userDetails.password);
 
-      if (!isMatch) {
+      if (!isMatch) 
+      {
         return res
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
       }
-      const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
-      var transporter = nodemailer.createTransport({
+      //const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
+      var transporter = nodemailer.createTransport
+      ({
         service: "gmail",
-        auth: {
+        auth: 
+        {
           user: "devteaminfinityno1@gmail.com",
           pass: "qb\4`-+#Z1",
         },
@@ -310,12 +318,16 @@ router.post(
         from: "devteaminfinityno1@gmail.com",
         to: useremail,
         subject: "OTP for Login",
-        text: `Your OTP is ` + randomOTPVal,
+        // text: `Your OTP is ` + randomOTPVal,
       };
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
+      transporter.sendMail(mailOptions, function (error, info) 
+      {
+        if (error) 
+        {
           console.log(error);
-        } else {
+        } 
+        else 
+        {
           console.log("Email sent: " + info.response);
           return res.json("OTP Sent to Email");
         }
@@ -323,9 +335,10 @@ router.post(
       await UserDetails.updateOne(
         { _id: userDetails._id },
         {
-          $set: {
-            genaratedOtp: randomOTPVal,
-          },
+           $set: 
+          {
+          //   genaratedOtp: randomOTPVal,
+            },
         }
       );
     } catch (err) {
